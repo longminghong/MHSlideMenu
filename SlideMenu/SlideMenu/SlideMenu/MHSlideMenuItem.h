@@ -8,13 +8,27 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^MHSlideMenuItemClick)(id selectedItem);
+
 @interface MHSlideMenuItem : UIControl
 
 @property (nonatomic,assign) id target;
+
 @property (nonatomic,strong) UIImage *icon;
-@property (nonatomic,strong) NSString *text;
+
+@property (nonatomic,strong) UIImage *selectedIcon;
+
+@property (nonatomic,strong) NSString *title;
+
 @property (nonatomic,strong) UIColor *backgroundColor;
+
 @property (nonatomic,strong) UIColor *selectedColor;
 
+@property (nonatomic,strong) UIFont *font;
 
+@property (nonatomic,copy) MHSlideMenuItemClick itemSelectedBlock;
+
+- (instancetype)initWithTitle:(NSString *)title image:(UIImage *)image selectedImage:(UIImage *)selectedImage;
+
+- (void)setSelectedBlock:(MHSlideMenuItemClick)block;
 @end

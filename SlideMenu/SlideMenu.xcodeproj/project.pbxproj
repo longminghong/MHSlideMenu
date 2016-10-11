@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF07BB891DACA9EA00A4B1D0 /* ios7-arrow-forward.png in Resources */ = {isa = PBXBuildFile; fileRef = AF07BB881DACA9EA00A4B1D0 /* ios7-arrow-forward.png */; };
+		AF07BB8D1DACAA9000A4B1D0 /* ios7-baseball-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = AF07BB8A1DACAA9000A4B1D0 /* ios7-baseball-outline.png */; };
+		AF07BB8E1DACAA9000A4B1D0 /* ios7-bolt-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = AF07BB8B1DACAA9000A4B1D0 /* ios7-bolt-outline.png */; };
+		AF07BB8F1DACAA9000A4B1D0 /* ios7-briefcase-outline.png in Resources */ = {isa = PBXBuildFile; fileRef = AF07BB8C1DACAA9000A4B1D0 /* ios7-briefcase-outline.png */; };
+		AF07BB941DACB1BF00A4B1D0 /* icon_favorite.png in Resources */ = {isa = PBXBuildFile; fileRef = AF07BB901DACB1BF00A4B1D0 /* icon_favorite.png */; };
+		AF07BB951DACB1BF00A4B1D0 /* icon_home.png in Resources */ = {isa = PBXBuildFile; fileRef = AF07BB911DACB1BF00A4B1D0 /* icon_home.png */; };
+		AF07BB961DACB1BF00A4B1D0 /* icon_search.png in Resources */ = {isa = PBXBuildFile; fileRef = AF07BB921DACB1BF00A4B1D0 /* icon_search.png */; };
+		AF07BB971DACB1BF00A4B1D0 /* icon_starred.png in Resources */ = {isa = PBXBuildFile; fileRef = AF07BB931DACB1BF00A4B1D0 /* icon_starred.png */; };
 		AF9B02B11DAC987E00E30DA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9B02B01DAC987E00E30DA2 /* main.m */; };
 		AF9B02B41DAC987E00E30DA2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9B02B31DAC987E00E30DA2 /* AppDelegate.m */; };
 		AF9B02B71DAC987E00E30DA2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9B02B61DAC987E00E30DA2 /* ViewController.m */; };
@@ -18,6 +26,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF07BB881DACA9EA00A4B1D0 /* ios7-arrow-forward.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "ios7-arrow-forward.png"; path = "SlideMenu/ios7-arrow-forward.png"; sourceTree = "<group>"; };
+		AF07BB8A1DACAA9000A4B1D0 /* ios7-baseball-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-baseball-outline.png"; sourceTree = "<group>"; };
+		AF07BB8B1DACAA9000A4B1D0 /* ios7-bolt-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-bolt-outline.png"; sourceTree = "<group>"; };
+		AF07BB8C1DACAA9000A4B1D0 /* ios7-briefcase-outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ios7-briefcase-outline.png"; sourceTree = "<group>"; };
+		AF07BB901DACB1BF00A4B1D0 /* icon_favorite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_favorite.png; sourceTree = "<group>"; };
+		AF07BB911DACB1BF00A4B1D0 /* icon_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_home.png; sourceTree = "<group>"; };
+		AF07BB921DACB1BF00A4B1D0 /* icon_search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_search.png; sourceTree = "<group>"; };
+		AF07BB931DACB1BF00A4B1D0 /* icon_starred.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_starred.png; sourceTree = "<group>"; };
 		AF9B02AC1DAC987E00E30DA2 /* SlideMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF9B02B01DAC987E00E30DA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AF9B02B21DAC987E00E30DA2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -64,6 +80,13 @@
 		AF9B02AE1DAC987E00E30DA2 /* SlideMenu */ = {
 			isa = PBXGroup;
 			children = (
+				AF07BB901DACB1BF00A4B1D0 /* icon_favorite.png */,
+				AF07BB911DACB1BF00A4B1D0 /* icon_home.png */,
+				AF07BB921DACB1BF00A4B1D0 /* icon_search.png */,
+				AF07BB931DACB1BF00A4B1D0 /* icon_starred.png */,
+				AF07BB8A1DACAA9000A4B1D0 /* ios7-baseball-outline.png */,
+				AF07BB8B1DACAA9000A4B1D0 /* ios7-bolt-outline.png */,
+				AF07BB8C1DACAA9000A4B1D0 /* ios7-briefcase-outline.png */,
 				AF9B02C91DAC995A00E30DA2 /* SlideMenu */,
 				AF9B02B21DAC987E00E30DA2 /* AppDelegate.h */,
 				AF9B02B31DAC987E00E30DA2 /* AppDelegate.m */,
@@ -89,6 +112,7 @@
 		AF9B02C91DAC995A00E30DA2 /* SlideMenu */ = {
 			isa = PBXGroup;
 			children = (
+				AF07BB881DACA9EA00A4B1D0 /* ios7-arrow-forward.png */,
 				AF9B02C61DAC993A00E30DA2 /* MHSlideMenu.h */,
 				AF9B02C71DAC993A00E30DA2 /* MHSlideMenu.m */,
 				AF9B02CA1DAC996E00E30DA2 /* MHSlideMenuItem.h */,
@@ -154,9 +178,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF07BB961DACB1BF00A4B1D0 /* icon_search.png in Resources */,
+				AF07BB951DACB1BF00A4B1D0 /* icon_home.png in Resources */,
+				AF07BB8F1DACAA9000A4B1D0 /* ios7-briefcase-outline.png in Resources */,
 				AF9B02BF1DAC987E00E30DA2 /* LaunchScreen.storyboard in Resources */,
+				AF07BB8E1DACAA9000A4B1D0 /* ios7-bolt-outline.png in Resources */,
+				AF07BB891DACA9EA00A4B1D0 /* ios7-arrow-forward.png in Resources */,
+				AF07BB941DACB1BF00A4B1D0 /* icon_favorite.png in Resources */,
 				AF9B02BC1DAC987E00E30DA2 /* Assets.xcassets in Resources */,
+				AF07BB971DACB1BF00A4B1D0 /* icon_starred.png in Resources */,
 				AF9B02BA1DAC987E00E30DA2 /* Main.storyboard in Resources */,
+				AF07BB8D1DACAA9000A4B1D0 /* ios7-baseball-outline.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,6 +352,7 @@
 				AF9B02C51DAC987E00E30DA2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
