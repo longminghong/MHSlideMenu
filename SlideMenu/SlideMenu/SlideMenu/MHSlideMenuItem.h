@@ -10,7 +10,7 @@
 
 typedef void(^MHSlideMenuItemClick)(id selectedItem);
 
-@interface MHSlideMenuItem : UIControl
+@interface MHSlideMenuItem : NSObject
 
 @property (nonatomic,assign) id target;
 
@@ -31,4 +31,5 @@ typedef void(^MHSlideMenuItemClick)(id selectedItem);
 - (instancetype)initWithTitle:(NSString *)title image:(UIImage *)image selectedImage:(UIImage *)selectedImage;
 
 - (void)setSelectedBlock:(MHSlideMenuItemClick)block;
+
 @end

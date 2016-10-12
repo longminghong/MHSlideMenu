@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class MHSlideMenuItem;
+
 typedef NS_ENUM(NSInteger,MHSlideMenuState) {
 
     MHSlideMenuStateClose,
@@ -20,6 +22,11 @@ typedef NS_ENUM(NSInteger,MHSlideMenuItemWidthStyle) {
     MHSlideMenuItemWidthStyleFixed,
     MHSlideMenuItemWidthStyleDynamic,
 };
+
+
+@interface MHSlideMenuItemView : UIControl
+
+@end
 
 @interface MHSlideMenu : UIControl
 /**
@@ -35,8 +42,12 @@ typedef NS_ENUM(NSInteger,MHSlideMenuItemWidthStyle) {
 
 @property (nonatomic,assign) MHSlideMenuItemWidthStyle itemWidthStyle;
 
-@property (nonatomic,strong) NSMutableArray *items;
+
 
 + (instancetype)initWithDefaultConfig;
+
+- (void)addItems:(NSArray *)items;
+
+- (void)toggleMenuOpen;
 
 @end
