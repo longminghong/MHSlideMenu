@@ -44,8 +44,6 @@ typedef NS_ENUM(NSInteger,MHSlideMenuItemWidthStyle) {
 
 @property (nonatomic,assign) MHSlideMenuItemWidthStyle itemWidthStyle;
 
-
-
 + (instancetype)initWithDefaultConfig;
 
 - (void)addItems:(NSArray *)items;

@@ -35,6 +35,10 @@
     MHSlideMenuItem *item3 = [[MHSlideMenuItem alloc]initWithTitle:@"title3" image:[UIImage imageNamed:@"icon_search"] selectedImage:nil];
     MHSlideMenuItem *item4 = [[MHSlideMenuItem alloc]initWithTitle:@"title4" image:[UIImage imageNamed:@"icon_starred"] selectedImage:nil];
     
+    [item1 setTarget:self];
+    [item1 setTargetAction:@selector(facvorite)];
+    [item1 setEvents:UIControlEventTouchUpInside];
+    
 //    MHSlideMenuItemView *item1 = [[MHSlideMenuItemView alloc]init];
 //    MHSlideMenuItemView *item2 = [[MHSlideMenuItemView alloc]init];
 //    MHSlideMenuItemView *item3 = [[MHSlideMenuItemView alloc]init];
@@ -51,6 +55,11 @@
     
     [self.view addSubview:_menu];
     
+}
+
+- (void)facvorite{
+    
+    NSLog(@"%s",__FUNCTION__);
 }
 
 - (void)didReceiveMemoryWarning {

@@ -8,6 +8,7 @@
 
 #import "MHSlideMenu.h"
 #import "MHSlideMenuItem.h"
+#import <CoreGraphics/CoreGraphics.h>
 
 #define SCREEN_WIDTH CGRectGetWidth([UIScreen mainScreen].bounds)
 
@@ -24,11 +25,9 @@ CGFloat const defaultMenuItemIconWidth = 20.0f;
 @interface MHSlideMenuItemView(){
     
     UIView *layerContainer;
-    CALayer *imageLayer;
-    CATextLayer *titleLayer;
-    UILabel *titleLabel;
     
-    
+    UIImageView *icon;
+    UILabel *titleLable;
 }
 
 @property (nonatomic,strong) MHSlideMenuItem *item;
@@ -42,29 +41,22 @@ CGFloat const defaultMenuItemIconWidth = 20.0f;
     
     layerContainer = [[UIView alloc]initWithFrame:frame];
     
-    titleLabel = [[UILabel alloc]init];
-    
-    [self addSubview:titleLabel];
+    self.layer.contentsScale = [UIScreen mainScreen].scale;
     
     return self;
 }
 
 - (void)initImageLayer{
     
-    imageLayer = [CALayer layer];
-    
-    imageLayer.contentsGravity = kCAGravityResizeAspect;
-    
-    imageLayer.contentsScale = [UIScreen mainScreen].scale;
-    
-    [self.layer addSublayer:imageLayer];
+    icon = [[UIImageView alloc]initWithFrame:CGRectZero];
+    icon.contentMode = UIViewContentModeScaleAspectFit;
+    [self addSubview:icon];
 }
 
 - (void)initTextLayer{
     
-    titleLayer = [CATextLayer layer];
-    titleLayer.font = (__bridge CFTypeRef)[UIFont systemFontOfSize:14.0f];
-//    [self.layer addSublayer:titleLayer];
+    titleLable = [[UILabel alloc]initWithFrame:CGRectZero];
+    [self addSubview:titleLable];
 }
 
 - (void)setMenuItem:(MHSlideMenuItem *)item{
@@ -76,40 +68,56 @@ CGFloat const defaultMenuItemIconWidth = 20.0f;
 
 - (void)layoutSubviews{
     
-    if (nil == imageLayer) {
+    if (nil == icon) {
         
         [self initImageLayer];
     }
-    
-    imageLayer.position = CGPointMake(0, 0.5);
+    if (nil == titleLable) {
+        [self initTextLayer];
+    }
     
     if (_item) {
+        
+        CGFloat superLayerWidth = CGRectGetWidth(self.frame);
         
         if (_item.icon) {
             /**
              *  设置layer的frame不能放到 layoutSubviews 的顶部，会造成显示错误。
              */
-            imageLayer.frame = CGRectMake(0, 0, defaultMenuItemIconWidth, defaultMHSlideMenuHeigh);
             
-            imageLayer.contents = (__bridge id)_item.icon.CGImage;
+            if (superLayerWidth>0) {
+                
+                icon.frame = CGRectMake(0, 0, defaultMenuItemIconWidth, defaultMHSlideMenuHeigh);
+            }
+            
+            [icon setImage:_item.icon];
         }
         
         if (_item.title) {
             
-            titleLayer.bounds = self.bounds;
-            titleLayer.string = _item.title;
+            if (superLayerWidth>0) {
+                
+                CGFloat titleLayerWidth = CGRectGetWidth(self.bounds) - defaultMenuItemIconWidth;
+                
+                titleLable.frame = CGRectMake(defaultMenuItemIconWidth, 0, titleLayerWidth, defaultMHSlideMenuHeigh);
+            }
+            titleLable.text = _item.title;
             
-//            titleLabel.text = _item.title;
+        }
+        
+        if (_item.target) {
+            
+            [self addTarget:_item.target action:_item.targetAction forControlEvents:_item.events];
         }
     }
     
-    
+    [super layoutSubviews];
 }
 
 @end
 
 @interface MHSlideMenu(){
-
+    
     
     CGRect originFrame;
 }
@@ -198,7 +206,7 @@ CGFloat const defaultMenuItemIconWidth = 20.0f;
     return _menuContentView;
 }
 - (UIButton *)toggleButton{
-
+    
     if (nil == _toggleButton) {
         
         _toggleButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, _toggleButtonWidth, defaultMHSlideMenuHeigh)];
@@ -271,8 +279,7 @@ CGFloat const defaultMenuItemIconWidth = 20.0f;
             
             [itemView setFrame:rect];
             
-            
-            [itemView setItem:item];
+            [itemView setMenuItem:item];
             
             [self.menuContentView addSubview:itemView];
             
@@ -301,7 +308,7 @@ CGFloat const defaultMenuItemIconWidth = 20.0f;
 }
 
 - (void)menuOpeningAnimation{
-
+    
     [UIView animateWithDuration:defaultOpenAnimationDuration delay:0 options:0 animations:^{
         
         CGRect frame = self.frame;
@@ -428,13 +435,13 @@ CGFloat const defaultMenuItemIconWidth = 20.0f;
          */
         constraintsString = [NSString stringWithFormat:@"H:|[_menuContentView][_toggleButton(==button_width)]-margin_right-|"];
         
-//        constraints = [NSLayoutConstraint constraintsWithVisualFormat:constraintsString
-//                                                              options:0
-//                                                              metrics:metrics
-//                                                                views:views];
+        //        constraints = [NSLayoutConstraint constraintsWithVisualFormat:constraintsString
+        //                                                              options:0
+        //                                                              metrics:metrics
+        //                                                                views:views];
         
-//        [self addConstraints:constraints];
-//        constraintsString = [NSString stringWithFormat:@"H:[_toggleButton(==button_width)]-margin_right-|"];
+        //        [self addConstraints:constraints];
+        //        constraintsString = [NSString stringWithFormat:@"H:[_toggleButton(==button_width)]-margin_right-|"];
         
         constraints = [NSLayoutConstraint constraintsWithVisualFormat:constraintsString
                                                               options:0
@@ -443,38 +450,6 @@ CGFloat const defaultMenuItemIconWidth = 20.0f;
         
         [self addConstraints:constraints];
     }
-    
-//    if (self.itemViews.count>0) {
-//        
-//        NSLog(@"constraints items");
-//        
-//        NSMutableDictionary *views = [NSMutableDictionary new];
-//        
-//        /**
-//         *  H constraints
-//         */
-//        NSMutableString *HformatString = [@"H:|" mutableCopy];
-//        
-//        for (int i = 0; i<=self.itemViews.count-1; i++) {
-//            
-//            [HformatString appendFormat:@"[item%d(==30)]", i];
-//            
-//            [views setObject:self.itemViews[i] forKey:[NSString stringWithFormat:@"item%d",i]];
-//        }
-//        
-//        [HformatString appendFormat:@"|"];
-//        
-//        [self.menuContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:HformatString options:0 metrics:nil views:views]];
-//        
-//        for (int i = 0; i<=self.itemViews.count-1; i++) {
-//            NSMutableString *VformatString = [@"V:|" mutableCopy];
-//            /**
-//             *  V constraints
-//             */
-//            [VformatString appendFormat:@"[item%d]|", i];
-//            [self.menuContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:VformatString options:0 metrics:nil views:views]];
-//        }
-//    }
     
     [super updateConstraints];
 }

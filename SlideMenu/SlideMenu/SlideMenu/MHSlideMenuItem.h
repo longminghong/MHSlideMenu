@@ -13,6 +13,8 @@ typedef void(^MHSlideMenuItemClick)(id selectedItem);
 @interface MHSlideMenuItem : NSObject
 
 @property (nonatomic,assign) id target;
+@property (nonatomic,assign) SEL targetAction;
+@property (nonatomic,assign) UIControlEvents events;
 
 @property (nonatomic,strong) UIImage *icon;
 

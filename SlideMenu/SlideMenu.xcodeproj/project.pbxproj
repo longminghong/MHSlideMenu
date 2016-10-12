@@ -15,6 +15,7 @@
 		AF07BB951DACB1BF00A4B1D0 /* icon_home.png in Resources */ = {isa = PBXBuildFile; fileRef = AF07BB911DACB1BF00A4B1D0 /* icon_home.png */; };
 		AF07BB961DACB1BF00A4B1D0 /* icon_search.png in Resources */ = {isa = PBXBuildFile; fileRef = AF07BB921DACB1BF00A4B1D0 /* icon_search.png */; };
 		AF07BB971DACB1BF00A4B1D0 /* icon_starred.png in Resources */ = {isa = PBXBuildFile; fileRef = AF07BB931DACB1BF00A4B1D0 /* icon_starred.png */; };
+		AF07BB991DADFAC400A4B1D0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF07BB981DADFAC400A4B1D0 /* CoreGraphics.framework */; };
 		AF9B02B11DAC987E00E30DA2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9B02B01DAC987E00E30DA2 /* main.m */; };
 		AF9B02B41DAC987E00E30DA2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9B02B31DAC987E00E30DA2 /* AppDelegate.m */; };
 		AF9B02B71DAC987E00E30DA2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AF9B02B61DAC987E00E30DA2 /* ViewController.m */; };
@@ -34,6 +35,7 @@
 		AF07BB911DACB1BF00A4B1D0 /* icon_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_home.png; sourceTree = "<group>"; };
 		AF07BB921DACB1BF00A4B1D0 /* icon_search.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_search.png; sourceTree = "<group>"; };
 		AF07BB931DACB1BF00A4B1D0 /* icon_starred.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_starred.png; sourceTree = "<group>"; };
+		AF07BB981DADFAC400A4B1D0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		AF9B02AC1DAC987E00E30DA2 /* SlideMenu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlideMenu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF9B02B01DAC987E00E30DA2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AF9B02B21DAC987E00E30DA2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF07BB991DADFAC400A4B1D0 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +67,7 @@
 		AF9B02A31DAC987E00E30DA2 = {
 			isa = PBXGroup;
 			children = (
+				AF07BB981DADFAC400A4B1D0 /* CoreGraphics.framework */,
 				AF9B02AE1DAC987E00E30DA2 /* SlideMenu */,
 				AF9B02AD1DAC987E00E30DA2 /* Products */,
 			);
