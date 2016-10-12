@@ -16,14 +16,36 @@ CGFloat const defaultMHSlideMenuHeigh = 60.0f;
 
 NSTimeInterval const defaultOpenAnimationDuration = 0.2;
 NSTimeInterval const defaultCloseAnimationDuration = 0.2;
+NSTimeInterval const defaultMenuItemViewCloseDuration = 0.15;
+
+@interface MHSlideMenuItemView(){
+
+    
+}
+@property (nonatomic,strong) MHSlideMenuItem *item;
+@end
 
 @implementation MHSlideMenuItemView : UIControl
 
+- (void)setMenuItem:(MHSlideMenuItem *)item{
+
+    self.item = item;
+    
+    [self layoutIfNeeded];
+}
+
+- (void)layoutSubviews{
+    
+    if (_item) {
+        
+    }
+    
+    [super layoutSubviews];
+}
 @end
 
 @interface MHSlideMenu(){
 
-    
     
     CGRect originFrame;
 }
@@ -249,14 +271,15 @@ NSTimeInterval const defaultCloseAnimationDuration = 0.2;
             
             itemView.frame = frame;
             
+            itemView.alpha = 1;
+            
         } completion:nil];
     }
-
 }
 
 - (void)menuCloseAnimation{
     
-    [UIView animateWithDuration:defaultCloseAnimationDuration delay:0 options:0 animations:^{
+    [UIView animateWithDuration:defaultCloseAnimationDuration delay:defaultCloseAnimationDuration/_itemViews.count options:0 animations:^{
         
         self.frame = originFrame;
         
@@ -269,6 +292,27 @@ NSTimeInterval const defaultCloseAnimationDuration = 0.2;
             self.menuState = MHSlideMenuStateClose;
         }
     }];
+    
+    CGFloat width = 0;
+    
+    for (UIView *itemView in _itemViews) {
+        
+        NSInteger idx = [_itemViews indexOfObject:itemView];
+        
+        [UIView animateWithDuration:defaultMenuItemViewCloseDuration delay:defaultMenuItemViewCloseDuration / (idx + 1) options:0 animations:^{
+            
+            CGRect frame = CGRectZero;
+            
+            frame.origin.x = idx*width;
+            
+            frame.size.width = width;
+            
+            frame.size.height = defaultMHSlideMenuHeigh;
+            
+            itemView.frame = frame;
+            itemView.alpha = 0;
+        } completion:nil];
+    }
 }
 
 #pragma mark -

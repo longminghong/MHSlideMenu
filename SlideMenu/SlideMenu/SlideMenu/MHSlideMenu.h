@@ -26,6 +26,8 @@ typedef NS_ENUM(NSInteger,MHSlideMenuItemWidthStyle) {
 
 @interface MHSlideMenuItemView : UIControl
 
+- (void)setMenuItem:(MHSlideMenuItem *)item;
+
 @end
 
 @interface MHSlideMenu : UIControl
