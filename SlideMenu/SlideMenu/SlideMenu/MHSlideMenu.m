@@ -31,6 +31,7 @@ NSTimeInterval const defaultCloseAnimationDuration = 0.2;
 @property (nonatomic,strong) UIButton* toggleButton;
 @property (nonatomic,strong) UIView *container;
 @property (nonatomic,strong) NSMutableArray *items;
+@property (nonatomic,strong) NSMutableArray *itemViews;
 @property (nonatomic,strong) UIView *menuContentView;
 @end
 
@@ -44,6 +45,7 @@ NSTimeInterval const defaultCloseAnimationDuration = 0.2;
     if (nil == _items) {
         
         _items = [[NSMutableArray alloc]init];
+        _itemViews = [_items mutableCopy];
     }
     return _items;
 }
@@ -150,7 +152,11 @@ NSTimeInterval const defaultCloseAnimationDuration = 0.2;
     
     [self.items addObjectsFromArray:items];
     
-    for (UIView *subView in [_container subviews]) {
+    if (self.itemViews.count>0) {
+        
+        [self.itemViews removeAllObjects];
+    }
+    for (UIView *subView in [self.menuContentView subviews]) {
         
         [subView removeFromSuperview];
     }
@@ -166,7 +172,7 @@ NSTimeInterval const defaultCloseAnimationDuration = 0.2;
         
         for (int i = 0; i<_items.count; i++) {
             
-            MHSlideMenuItem *item = _items[i];
+//            MHSlideMenuItem *item = _items[i];
             
             MHSlideMenuItemView *itemView = [[MHSlideMenuItemView alloc]init];
             
@@ -178,11 +184,13 @@ NSTimeInterval const defaultCloseAnimationDuration = 0.2;
             UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
             
             [itemView setFrame:rect];
-            [self.container addSubview:itemView];
+            
+            [self.menuContentView addSubview:itemView];
+            
             [itemView setBackgroundColor:color];
+            
+            [self.itemViews addObject:itemView];
         }
-        
-        NSLog(@"layout item finish");
     }
 }
 
@@ -193,11 +201,13 @@ NSTimeInterval const defaultCloseAnimationDuration = 0.2;
     
     if (MHSlideMenuStateOpened == self.menuState) {
         
-        [self menuCloseAnimation ];
+        [self menuCloseAnimation];
         
     }else if (MHSlideMenuStateClose == self.menuState){
         
-        [self menuOpeningAnimation ];
+        [self menuOpeningAnimation];
+        
+        [self needsUpdateConstraints];
     }
 }
 
@@ -207,7 +217,7 @@ NSTimeInterval const defaultCloseAnimationDuration = 0.2;
         
         CGRect frame = self.frame;
         
-        frame.size.width = CGRectGetWidth(frame) + 300;
+        frame.size.width = _width;
         
         self.frame = frame;
         
@@ -220,6 +230,28 @@ NSTimeInterval const defaultCloseAnimationDuration = 0.2;
             self.menuState = MHSlideMenuStateOpened;
         }
     }];
+    
+    CGFloat width = (_width - _toggleButtonWidth)/_itemViews.count;
+    
+    for (UIView *itemView in _itemViews) {
+        
+        NSInteger idx = [_itemViews indexOfObject:itemView];
+        
+        [UIView animateWithDuration:defaultOpenAnimationDuration delay:defaultOpenAnimationDuration / (idx + 1) options:0 animations:^{
+            
+            CGRect frame = CGRectZero;
+            
+            frame.origin.x = idx*width;
+            
+            frame.size.width = width;
+            
+            frame.size.height = defaultMHSlideMenuHeigh;
+            
+            itemView.frame = frame;
+            
+        } completion:nil];
+    }
+
 }
 
 - (void)menuCloseAnimation{
@@ -301,7 +333,7 @@ NSTimeInterval const defaultCloseAnimationDuration = 0.2;
         [self addConstraints:constraints];
     }
     
-//    if (self.items.count>0) {
+//    if (self.itemViews.count>0) {
 //        
 //        NSLog(@"constraints items");
 //        
@@ -312,24 +344,24 @@ NSTimeInterval const defaultCloseAnimationDuration = 0.2;
 //         */
 //        NSMutableString *HformatString = [@"H:|" mutableCopy];
 //        
-//        for (int i = 0; i<=self.items.count-1; i++) {
+//        for (int i = 0; i<=self.itemViews.count-1; i++) {
 //            
-//            [HformatString appendFormat:@"[item%d(30)]", i];
+//            [HformatString appendFormat:@"[item%d(==30)]", i];
 //            
-//            [views setObject:self.items[i] forKey:[NSString stringWithFormat:@"item%d",i]];
+//            [views setObject:self.itemViews[i] forKey:[NSString stringWithFormat:@"item%d",i]];
 //        }
 //        
 //        [HformatString appendFormat:@"|"];
 //        
-//        [_container addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:HformatString options:0 metrics:nil views:views]];
+//        [self.menuContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:HformatString options:0 metrics:nil views:views]];
 //        
-//        for (int i = 0; i<=self.items.count-1; i++) {
+//        for (int i = 0; i<=self.itemViews.count-1; i++) {
 //            NSMutableString *VformatString = [@"V:|" mutableCopy];
 //            /**
 //             *  V constraints
 //             */
 //            [VformatString appendFormat:@"[item%d]|", i];
-//            [_container addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:VformatString options:0 metrics:nil views:views]];
+//            [self.menuContentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:VformatString options:0 metrics:nil views:views]];
 //        }
 //    }
     
