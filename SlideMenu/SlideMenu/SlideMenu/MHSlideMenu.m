@@ -18,17 +18,57 @@ NSTimeInterval const defaultOpenAnimationDuration = 0.2;
 NSTimeInterval const defaultCloseAnimationDuration = 0.2;
 NSTimeInterval const defaultMenuItemViewCloseDuration = 0.15;
 
-@interface MHSlideMenuItemView(){
 
+CGFloat const defaultMenuItemIconWidth = 20.0f;
+
+@interface MHSlideMenuItemView(){
+    
+    UIView *layerContainer;
+    CALayer *imageLayer;
+    CATextLayer *titleLayer;
+    UILabel *titleLabel;
+    
     
 }
+
 @property (nonatomic,strong) MHSlideMenuItem *item;
 @end
 
 @implementation MHSlideMenuItemView : UIControl
 
-- (void)setMenuItem:(MHSlideMenuItem *)item{
+- (instancetype)initWithFrame:(CGRect)frame{
+    
+    self = [super initWithFrame:frame];
+    
+    layerContainer = [[UIView alloc]initWithFrame:frame];
+    
+    titleLabel = [[UILabel alloc]init];
+    
+    [self addSubview:titleLabel];
+    
+    return self;
+}
 
+- (void)initImageLayer{
+    
+    imageLayer = [CALayer layer];
+    
+    imageLayer.contentsGravity = kCAGravityResizeAspect;
+    
+    imageLayer.contentsScale = [UIScreen mainScreen].scale;
+    
+    [self.layer addSublayer:imageLayer];
+}
+
+- (void)initTextLayer{
+    
+    titleLayer = [CATextLayer layer];
+    titleLayer.font = (__bridge CFTypeRef)[UIFont systemFontOfSize:14.0f];
+//    [self.layer addSublayer:titleLayer];
+}
+
+- (void)setMenuItem:(MHSlideMenuItem *)item{
+    
     self.item = item;
     
     [self layoutIfNeeded];
@@ -36,12 +76,36 @@ NSTimeInterval const defaultMenuItemViewCloseDuration = 0.15;
 
 - (void)layoutSubviews{
     
-    if (_item) {
+    if (nil == imageLayer) {
         
+        [self initImageLayer];
     }
     
-    [super layoutSubviews];
+    imageLayer.position = CGPointMake(0, 0.5);
+    
+    if (_item) {
+        
+        if (_item.icon) {
+            /**
+             *  设置layer的frame不能放到 layoutSubviews 的顶部，会造成显示错误。
+             */
+            imageLayer.frame = CGRectMake(0, 0, defaultMenuItemIconWidth, defaultMHSlideMenuHeigh);
+            
+            imageLayer.contents = (__bridge id)_item.icon.CGImage;
+        }
+        
+        if (_item.title) {
+            
+            titleLayer.bounds = self.bounds;
+            titleLayer.string = _item.title;
+            
+//            titleLabel.text = _item.title;
+        }
+    }
+    
+    
 }
+
 @end
 
 @interface MHSlideMenu(){
@@ -194,7 +258,7 @@ NSTimeInterval const defaultMenuItemViewCloseDuration = 0.15;
         
         for (int i = 0; i<_items.count; i++) {
             
-//            MHSlideMenuItem *item = _items[i];
+            MHSlideMenuItem *item = _items[i];
             
             MHSlideMenuItemView *itemView = [[MHSlideMenuItemView alloc]init];
             
@@ -206,6 +270,9 @@ NSTimeInterval const defaultMenuItemViewCloseDuration = 0.15;
             UIColor *color = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
             
             [itemView setFrame:rect];
+            
+            
+            [itemView setItem:item];
             
             [self.menuContentView addSubview:itemView];
             

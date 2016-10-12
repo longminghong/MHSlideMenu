@@ -27,7 +27,7 @@
     
     
     _menu = [[MHSlideMenu alloc]init];
-    CGRect frame = CGRectMake(0, 0, 30, 60);
+    CGRect frame = CGRectMake(0, 100, 30, 60);
     [self.menu setFrame:frame];
     
     MHSlideMenuItem *item1 = [[MHSlideMenuItem alloc]initWithTitle:@"title1" image:[UIImage imageNamed:@"icon_favorite.png"] selectedImage:nil];
